@@ -1,15 +1,17 @@
 <?php
 
-require 'data/books.data.php';
-
 if ($id = $_REQUEST['id']) {
-    $bookIndex = array_search($id, array_column($books, 'id'));
+    $book = $database
+        ->query(
+            "SELECT * FROM books WHERE id = :id LIMIT 1",
+            ['id' => $id],
+            Book::class
+        )
+        ->fetch();
 
-    if ($bookIndex === false) {
+    if (!$book) {
         abort(404);
     }
-
-    $book = $books[$bookIndex];
 } else {
     abort(404);
 }

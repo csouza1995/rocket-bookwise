@@ -1,4 +1,4 @@
-# Portfolio Challenge
+# Bookwise
 
 Following the instructions from Rocketseat's PHP training I created this system of BookWise
 
@@ -15,6 +15,12 @@ TODO
 
 ```php
 php -S localhost:8888 -d auto_prepend_file=server.php
+```
+
+## Up Database and Seed
+
+```prompt
+    php commands/migrate.php && php commands/seeder.php
 ```
 
 ---
