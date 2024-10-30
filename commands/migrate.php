@@ -1,12 +1,34 @@
 <?php
 
 require "functions.php";
-$config = require "config/config.php";
-require 'database/database.php';
+require 'database/Database.php';
 require 'database/migration.base.php';
 
+// get params from command line
+$rollback = in_array('--rollback', $argv);
+
+$step = array_values(array_filter($argv, function ($arg) {
+    return strpos($arg, '--step=') !== false;
+}))[0] ?? false;
+$step = $step !== false ? (int) explode('=', $step)[1] : 0;
+
+$fresh = in_array('--fresh', $argv);
+
+if ($fresh) {
+    // get drop all tables
+    $tables = $database->query("SELECT name FROM sqlite_master WHERE type='table'")->fetchAll();
+
+    foreach ($tables as $table) {
+        if ($table->name === 'sqlite_sequence') {
+            continue;
+        }
+
+        $database->exec("DROP TABLE {$table->name}");
+    }
+}
+
 // check if migration table exists and if not create it
-if ($database->exec('SELECT * FROM migrations', false) === false) {
+if ($database->query("SELECT name FROM sqlite_master WHERE type='table' AND name='migrations'")->fetch() === false) {
     $database->exec('CREATE TABLE migrations (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         migration VARCHAR(255), 
@@ -22,15 +44,6 @@ $migrationFiles = glob('database/migrations/*.php');
 
 // order migration files
 sort($migrationFiles);
-
-// get params from command line
-$rollback = in_array('--rollback', $argv);
-
-$step = array_values(array_filter($argv, function ($arg) {
-    return strpos($arg, '--step=') !== false;
-}))[0] ?? false;
-
-$step = $step !== false ? (int) explode('=', $step)[1] : 0;
 
 // register migration
 function registerMigration(string $name)

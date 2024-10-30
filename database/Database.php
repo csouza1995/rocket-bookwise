@@ -1,6 +1,6 @@
 <?php
 
-class DB
+class Database
 {
     protected PDO $pdo;
 
@@ -66,4 +66,4 @@ class DB
     }
 }
 
-$database = new DB($config['database']);
+$database = new Database(config('database'));

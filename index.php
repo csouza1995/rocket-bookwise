@@ -2,10 +2,13 @@
 
 require "functions.php";
 
-$config = require "config/config.php";
-
-require "database/database.php";
+require "sessions/Session.php";
+require "database/Database.php";
+require "validators/Validator.php";
 
 require "models/Book.php";
+require "models/User.php";
+
+Session::start();
 
 require "routes.php";

@@ -1,8 +1,7 @@
 <?php
 
 require "functions.php";
-$config = require "config/config.php";
-require 'database/database.php';
+require 'database/Database.php';
 
 // get params from command line
 $name = array_values(array_filter($argv, function ($arg) {
@@ -23,3 +22,5 @@ if (!file_exists('database/seeders/' . $name . '.seeder.php')) {
 
 // require seeder
 require 'database/seeders/' . $name . '.seeder.php';
+
+echo 'Seeder executed successfully' . PHP_EOL;

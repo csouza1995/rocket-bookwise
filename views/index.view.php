@@ -5,7 +5,7 @@
         placeholder="Search for books"
         class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
         name="search"
-        value="<?= $_REQUEST['search'] ?>">
+        value="<?= $_REQUEST['search'] ?? '' ?>">
 
     <button type="submit" class="text-white p-2 rounded-md hover:bg-gray-700">
         <i class='bx bx-search'></i>

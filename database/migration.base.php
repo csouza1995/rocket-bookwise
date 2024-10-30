@@ -2,12 +2,10 @@
 
 class MigrationBase
 {
-    protected ?DB $db;
+    protected ?Database $db = null;
 
     public function __construct()
     {
-        $config = require "config/config.php";
-
-        $this->db = new DB($config['database']);
+        $this->db = new Database(config('database'));
     }
 }

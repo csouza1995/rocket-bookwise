@@ -1,11 +1,22 @@
-<div class="mx-auto w-1/2" x-data="{ type: 'login' }">
-    <!-- message -->
-    <?php if ($message) : ?>
-        <div class="bg-green-700 text-white p-4 rounded-md mb-5" x-data="{ show: true }" x-show="show">
-            <?= $message ?>
+<div class="mx-auto w-1/2" x-data="{ type: '<?php echo $_REQUEST['type'] ?? 'login'; ?>' }">
+    <!-- messages -->
+    <?php if ($successMessage = Session::get('message::success')) : ?>
+        <div class="bg-green-700 text-green-200 p-4 rounded-md mb-5" x-data="{ show: true }" x-show="show">
+            <?= $successMessage ?>
 
             <button x-on:click="show = false"
-                class="right-0 top-0 text-white hover:bg-green-800 rounded-md float-right">
+                class="right-0 top-0 hover:bg-green-800 rounded-md float-right">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($errorMessage = Session::get('message::error')) : ?>
+        <div class="bg-red-700 text-red-200 p-4 rounded-md mb-5" x-data="{ show: true }" x-show="show">
+            <?= $errorMessage ?>
+
+            <button x-on:click="show = false"
+                class="right-0 top-0 hover:bg-red-800 rounded-md float-right">
                 <i class='bx bx-x'></i>
             </button>
         </div>
@@ -26,7 +37,11 @@
                     placeholder="E-mail"
                     class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
                     name="email"
-                    value="<?= $_REQUEST['email'] ?>">
+                    value="<?= old('email') ?>">
+
+                <?php if ($error = error('email')) : ?>
+                    <div class="text-red-500 text-xs"><?= $error ?></div>
+                <?php endif; ?>
             </div>
 
             <div class="space-y-2">
@@ -37,6 +52,10 @@
                     placeholder="Password"
                     class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
                     name="password">
+
+                <?php if ($error = error('password')) : ?>
+                    <div class="text-red-500 text-xs"><?= $error ?></div>
+                <?php endif; ?>
             </div>
 
             <button type="submit"
@@ -72,7 +91,11 @@
                         placeholder="Name"
                         class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
                         name="name"
-                        value="<?= $_REQUEST['name'] ?>">
+                        value="<?= old('name') ?>">
+
+                    <?php if ($error = error('name')) : ?>
+                        <div class="text-red-500 text-xs"><?= $error ?></div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="space-y-2">
@@ -83,7 +106,11 @@
                         placeholder="Surname"
                         class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
                         name="surname"
-                        value="<?= $_REQUEST['surname'] ?>">
+                        value="<?= old('surname') ?>">
+
+                    <?php if ($error = error('surname')) : ?>
+                        <div class="text-red-500 text-xs"><?= $error ?></div>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -95,18 +122,22 @@
                     placeholder="E-mail"
                     class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
                     name="email"
-                    value="<?= $_REQUEST['email'] ?>">
+                    value="<?= old('email') ?>">
+
+                <?php if ($error = error('email')) : ?>
+                    <div class="text-red-500 text-xs"><?= $error ?></div>
+                <?php endif; ?>
             </div>
 
             <div class="space-y-2">
-                <label class="text-gray-300 font-bold" for="validate_email">Validate E-mail</label>
+                <label class="text-gray-300 font-bold" for="email_confirm">Confirm E-mail</label>
 
                 <input
                     type="text"
                     placeholder="Validate E-mail"
                     class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
-                    name="validate_email"
-                    value="<?= $_REQUEST['validate_email'] ?>">
+                    name="email_confirm"
+                    value="<?= old('email_confirm') ?>">
             </div>
 
             <div class="space-y-2">
@@ -117,6 +148,10 @@
                     placeholder="Password"
                     class="w-full p-2 rounded-md text-sm focus:outline-none text-gray-900"
                     name="password">
+
+                <?php if ($error = error('password')) : ?>
+                    <div class="text-red-500 text-xs"><?= $error ?></div>
+                <?php endif; ?>
             </div>
 
             <div class="flex space-x-4">

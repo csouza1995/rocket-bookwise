@@ -20,7 +20,19 @@
                 <li><a href="/my-books" class="hover:underline">My Books</a></li>
             </ul>
             <ul>
-                <li><a href="/login" class="hover:underline">Login</a></li>
+                <?php if (auth()) : ?>
+                    <li x-data="{ open: false }" @click.away="open = false">
+                        <button @click="open = !open" class="hover:underline">
+                            <?= auth()->getFullname() ?>
+                        </button>
+                        <ul x-show="open" @click.away="open = false" class="absolute bg-gray-800 mt-2 py-2 rounded-lg shadow-lg">
+                            <li><a href="/profile" class="block px-4 py-2 hover:bg-gray-700">Profile</a></li>
+                            <li><a href="/logout" class="block px-4 py-2 hover:bg-gray-700">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php else : ?>
+                    <li><a href="/login" class="hover:underline">Login</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
