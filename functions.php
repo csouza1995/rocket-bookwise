@@ -63,6 +63,16 @@ if (!function_exists('redirect')) {
     }
 }
 
+if (!function_exists('redirectBack')) {
+    function redirectBack()
+    {
+        $url = $_SERVER['HTTP_REFERER'] ?? '/';
+
+        header('Location: ' . $url);
+        exit();
+    }
+}
+
 if (!function_exists('abort')) {
     function abort($code)
     {
@@ -120,6 +130,10 @@ if (!function_exists('error')) {
 if (!function_exists('auth')) {
     function auth()
     {
+        if (!Session::has('auth')) {
+            return null;
+        }
+
         return Session::get('auth');
     }
 }

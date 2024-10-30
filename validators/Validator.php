@@ -24,6 +24,8 @@ class Validator
 
                 $rule = array_shift($ruleValues);
 
+                $ruleValues = explode(',', implode(':', $ruleValues));
+
                 if (method_exists($validator, $rule)) {
                     $validator->$rule($field, $data, $attributes, ...$ruleValues);
                 } else {
@@ -83,6 +85,22 @@ class Validator
                 $field,
                 'email',
                 'Field :attribute must be a valid email address',
+                $attributes
+            );
+        }
+    }
+
+    private function numeric($field, $data, $attributes, ...$ruleValues)
+    {
+        if (!isset($data[$field]) || strlen($data[$field]) === 0) {
+            return;
+        }
+
+        if (!is_numeric($data[$field])) {
+            $this->addError(
+                $field,
+                'numeric',
+                'Field :attribute must be a number',
                 $attributes
             );
         }
@@ -165,7 +183,7 @@ class Validator
         }
 
         $table = $ruleValues[0];
-        $column = $field;
+        $column = $ruleValues[1] ?? $field;
 
         $result = $this->db
             ->query(
@@ -179,6 +197,32 @@ class Validator
                 $field,
                 'unique',
                 'Field :attribute must be unique',
+                $attributes
+            );
+        }
+    }
+
+    private function exists($field, $data, $attributes, ...$ruleValues)
+    {
+        if (!isset($data[$field]) || strlen($data[$field]) === 0) {
+            return;
+        }
+
+        $table = $ruleValues[0];
+        $column = $ruleValues[1] ?? $field;
+
+        $result = $this->db
+            ->query(
+                "SELECT COUNT(*) as count FROM {$table} WHERE {$column} = :{$column}",
+                [$column => $data[$field]]
+            )
+            ->fetch();
+
+        if ($result->count === 0) {
+            $this->addError(
+                $field,
+                'exists',
+                'Field :attribute must exist',
                 $attributes
             );
         }

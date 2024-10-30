@@ -12,6 +12,14 @@ if ($id = $_REQUEST['id']) {
     if (!$book) {
         abort(404);
     }
+
+    $book->reviews = $database
+        ->query(
+            "SELECT * FROM reviews WHERE book_id = :book_id",
+            ['book_id' => $book->id],
+            Review::class
+        )
+        ->fetchAll();
 } else {
     abort(404);
 }
