@@ -11,7 +11,10 @@ return new class extends MigrationBase
             genre VARCHAR(255),
             rating DECIMAL(2, 1),
             image VARCHAR(255),
-            description TEXT
+            description TEXT,
+            user_id INTEGER,
+            
+            FOREIGN KEY (user_id) REFERENCES users(id)
         )");
     }
 

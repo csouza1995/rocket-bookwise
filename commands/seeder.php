@@ -1,7 +1,9 @@
 <?php
 
-require "functions.php";
-require 'database/Database.php';
+define('ROOT', dirname(__DIR__ . '/../../'));
+
+require ROOT . "/functions.php";
+require ROOT . "/database/Database.php";
 
 // get params from command line
 $name = array_values(array_filter($argv, function ($arg) {
@@ -15,12 +17,12 @@ if (!$name) {
 }
 
 // check if seeder exists
-if (!file_exists('database/seeders/' . $name . '.seeder.php')) {
+if (!file_exists(ROOT . '/database/seeders/' . $name . '.seeder.php')) {
     echo 'Seeder not found' . PHP_EOL;
     exit;
 }
 
 // require seeder
-require 'database/seeders/' . $name . '.seeder.php';
+require ROOT . '/database/seeders/' . $name . '.seeder.php';
 
 echo 'Seeder executed successfully' . PHP_EOL;

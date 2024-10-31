@@ -12,9 +12,9 @@ return new class extends MigrationBase
 
     public function down()
     {
-        $this->db->exec("ALTER TABLE books DROP COLUMN num_pages");
-        $this->db->exec("ALTER TABLE books DROP COLUMN published_year");
-        $this->db->exec("ALTER TABLE books DROP COLUMN created_at");
         $this->db->exec("ALTER TABLE books DROP COLUMN updated_at");
+        $this->db->exec("ALTER TABLE books DROP COLUMN created_at");
+        $this->db->exec("ALTER TABLE books DROP COLUMN published_year");
+        $this->db->exec("ALTER TABLE books DROP COLUMN num_pages");
     }
 };

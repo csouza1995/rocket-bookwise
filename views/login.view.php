@@ -154,4 +154,11 @@
         </div>
     </div>
 
+    <div class="flex justify-center items-center mt-10 pt-10 border-t border-gray-700">
+        <a href="/"
+            class="text-white py-2 px-4 rounded-md hover:bg-gray-700 bg-gray-500">
+            <i class='bx bx-arrow-back'></i>
+            Explore
+        </a>
+    </div>
 </div>

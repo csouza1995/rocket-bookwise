@@ -37,7 +37,7 @@
         <?php endif; ?>
 
         <!-- content -->
-        <?php require "views/{$view}.view.php"; ?>
+        <?php require ROOT . "/views/{$view}.view.php"; ?>
     </main>
 </body>
 

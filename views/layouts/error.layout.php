@@ -13,7 +13,7 @@
 <body class="bg-gray-800 text-gray-400">
     <div class="flex items-center justify-center h-screen">
         <div class="text-center">
-            <?php require "views/errors/{$code}.view.php"; ?>
+            <?php require ROOT . "/views/errors/{$code}.view.php"; ?>
         </div>
     </div>
 </body>

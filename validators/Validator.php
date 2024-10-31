@@ -113,8 +113,9 @@ class Validator
         }
 
         $min = $ruleValues[0];
+        $checkValue = is_numeric($data[$field]) ? (float)$data[$field] : strlen($data[$field]);
 
-        if (strlen($data[$field]) < $min) {
+        if ($checkValue < $min) {
             $this->addError(
                 $field,
                 'min',
@@ -131,8 +132,9 @@ class Validator
         }
 
         $max = $ruleValues[0];
+        $checkValue = is_numeric($data[$field]) ? (float)$data[$field] : strlen($data[$field]);
 
-        if (strlen($data[$field]) > $max) {
+        if ($checkValue > $max) {
             $this->addError(
                 $field,
                 'max',

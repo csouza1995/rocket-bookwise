@@ -1,22 +1,22 @@
 <?php
 
 if ($id = $_REQUEST['id']) {
-    $book = $database
-        ->query(
-            "SELECT * FROM books WHERE id = :id LIMIT 1",
-            ['id' => $id],
-            Book::class
-        )
-        ->fetch();
+    $book = Book::get($id);
 
     if (!$book) {
         abort(404);
     }
 
-    $book->reviews = $database
+    $reviews = $database
         ->query(
-            "SELECT * FROM reviews WHERE book_id = :book_id",
-            ['book_id' => $book->id],
+            "SELECT 
+                reviews.*,
+                users.name || ' ' || users.surname as user_name
+                -- users.image as user_image
+            FROM reviews 
+            LEFT JOIN users ON reviews.user_id = users.id
+            WHERE book_id = :book_id",
+            ['book_id' => $id],
             Review::class
         )
         ->fetchAll();
@@ -24,4 +24,4 @@ if ($id = $_REQUEST['id']) {
     abort(404);
 }
 
-view('book', compact('book'));
+view('book', compact('book', 'reviews'));

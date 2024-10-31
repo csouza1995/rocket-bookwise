@@ -42,16 +42,16 @@ if (!function_exists('view')) {
         extract($data);
 
         $view = str_replace('.', '/', $view);
-        if (!file_exists("views/{$view}.view.php")) {
+        if (!file_exists(ROOT . "/views/{$view}.view.php")) {
             abort(404);
         }
 
         $layout = str_replace('.', '/', $layout);
-        if (!file_exists("views/layouts/{$layout}.layout.php")) {
+        if (!file_exists(ROOT . "/views/layouts/{$layout}.layout.php")) {
             abort(404);
         }
 
-        require "views/layouts/{$layout}.layout.php";
+        require ROOT . "/views/layouts/{$layout}.layout.php";
     }
 }
 
@@ -85,7 +85,7 @@ if (!function_exists('abort')) {
 if (!function_exists('config')) {
     function config(?string $key = null)
     {
-        $config = require 'config/config.php';
+        $config = require ROOT . '/config/config.php';
         return $key ? $config[$key] : $config;
     }
 }
