@@ -8,9 +8,15 @@ Following the instructions from Rocketseat's PHP training I created this system 
 ![Alpine.js](https://img.shields.io/badge/alpinejs-white.svg?style=for-the-badge&logo=alpinedotjs&logoColor=%238BC0D0)\
 [![wakatime](https://wakatime.com/badge/user/435e55fb-0356-4dac-9f26-0e167b1feaf4/project/fe728e98-dcbe-4a94-9aa6-bea509e01cfc.svg)](https://wakatime.com/badge/user/435e55fb-0356-4dac-9f26-0e167b1feaf4/project/fe728e98-dcbe-4a94-9aa6-bea509e01cfc)
 
-## Structure
+## Details
 
-MVC
+This project is about a book library.\
+Each book has her own, title, description, rating and another informations!\
+\
+Inside the system the user can register yourself and login!\
+When authenticated, write a review to a book, access 'my books' panel and register a new book!\
+\
+All are maded to works with safety, a good layout and with good feedbacks to user when all works fine or not
 
 ## Turn On
 
